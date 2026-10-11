@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Con amor y cariño para el amor de mi vida ❤️</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    overflow: hidden;
+    background: radial-gradient(ellipse, #35051f, #10000e 65%, #030006);
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.contenedor {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+}
+
+h1 {
+    color: #ffb4d5;
+    text-align: center;
+    font-size: clamp(22px, 5vw, 34px);
+    text-shadow: 0 0 18px #ff1680;
+    margin-bottom: 12px;
+    animation: aparecer 2s ease both;
+}
+
+.subtitulo {
+    color: #f7b4d3;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.corazon {
+    position: relative;
+    width: min(78vw, 370px);
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(.65);
+    transition: opacity 1.5s ease, transform 1.5s ease;
+    filter: drop-shadow(0 0 12px #ff126e);
+}
+
+.corazon.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.marco {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    animation: latido 1.8s infinite ease-in-out;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.marco path {
+    fill: none;
+    stroke: #ff4f9a;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+    filter: drop-shadow(0 0 4px #ff0077)
+            drop-shadow(0 0 12px #ff1680);
+}
+
+.foto-contenedor {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #27051d;
+    z-index: 1;
+    animation: flotar 3s ease-in-out infinite;
+
+    clip-path: path(
+        "M 185 345
+         C 160 320, 10 225, 10 125
+         C 10 45, 100 15, 185 95
+         C 270 15, 360 45, 360 125
+         C 360 225, 210 320, 185 345 Z"
+    );
+}
+
+.foto-contenedor img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.foto-corazon {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    z-index: 1;
+    filter: drop-shadow(0 0 12px #ff1680);
+    animation: latido 1.8s infinite ease-in-out;
+}
+
+.mensaje {
+    text-align: center;
+    margin-top: 8px;
+    color: #ffd1e5;
+    font-size: clamp(15px, 4vw, 19px);
+    letter-spacing: 1px;
+    text-shadow: 0 0 12px #ff1784;
+    opacity: 0;
+    transition: opacity 2s ease;
+}
+
+.mensaje.visible {
+    opacity: 1;
+}
+
+.boton {
+    margin-top: 20px;
+    border: 1px solid #ff80b8;
+    border-radius: 30px;
+    background: rgba(255, 25, 120, .15);
+    color: white;
+    padding: 12px 22px;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(255, 0, 110, .3);
+}
+
+.boton:active {
+    transform: scale(.96);
+}
+
+@keyframes latido {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.035); }
+}
+
+@keyframes flotar {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+@keyframes aparecer {
+    from { opacity: 0; transform: translateY(-15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-height: 650px) {
+    .corazon {
+        width: min(55vh, 300px);
+    }
+
+    h1 {
+        margin-bottom: 5px;
+    }
+
+    .boton {
+        margin-top: 8px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="particulas"></canvas>
+
+<main class="contenedor">
+    <h1>Un detalle para ti amor❤️</h1>
+    <p class="subtitulo">Hay momentos que merecen ser eternos</p>
+
+    <div class="corazon" id="corazon">
+
+        <!-- Marco con forma de corazón -->
+        <svg class="marco" viewBox="0 0 100 100"
+             xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 88
+                     C43 80, 8 56, 8 31
+                     C8 5, 38 2, 50 25
+                     C62 2, 92 5, 92 31
+                     C92 56, 57 80, 50 88 Z"/>
+        </svg>
+
+        <!-- CAMBIA foto.jpg POR EL NOMBRE DE TU FOTOGRAFÍA -->
+        <div class="foto-contenedor">
+            <img id="foto" src="amol.jpeg"
+                 alt="Nuestra fotografía">
+        </div>
+
+    </div>
+
+    <p class="mensaje" id="mensaje">
+        Tú y yo, juntos por mas momentos bonitos 💗
+    </p>
+
+    <button class="boton" id="repetir">
+        Volver a ver la magia ✨
+    </button>
+</main>
+
+<script>
+const canvas = document.getElementById("particulas");
+const ctx = canvas.getContext("2d");
+
+const corazon = document.getElementById("corazon");
+const mensaje = document.getElementById("mensaje");
+const foto = document.getElementById("foto");
+
+let ancho, alto;
+let particulas = [];
+let puntos = [];
+let progreso = 0;
+let iniciado = false;
+let animacion = 0;
+
+function ajustar() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    ancho = window.innerWidth;
+    alto = window.innerHeight;
+
+    canvas.width = ancho * dpr;
+    canvas.height = alto * dpr;
+    canvas.style.width = ancho + "px";
+    canvas.style.height = alto + "px";
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    crearPuntos();
+}
+
+function crearPuntos() {
+    puntos = [];
+
+    const escala = Math.min(ancho, alto) * 0.0065;
+    const cx = ancho / 2;
+    const cy = alto / 2 + 5;
+
+    for (let t = 0; t < Math.PI * 2; t += 0.035) {
+        const x = 16 * Math.pow(Math.sin(t), 3);
+        const y = 13 * Math.cos(t)
+            - 5 * Math.cos(2 * t)
+            - 2 * Math.cos(3 * t)
+            - Math.cos(4 * t);
+
+        puntos.push({
+            x: cx + x * escala,
+            y: cy - y * escala
+        });
+    }
+}
+
+function nuevaParticula(punto) {
+    particulas.push({
+        x: Math.random() * ancho,
+        y: alto + Math.random() * 60,
+        destinoX: punto.x,
+        destinoY: punto.y,
+        tam: Math.random() * 2 + 0.7,
+        velocidad: 0.025 + Math.random() * 0.045,
+        fase: Math.random() * Math.PI * 2
+    });
+}
+
+function dibujar() {
+    ctx.clearRect(0, 0, ancho, alto);
+
+    // Pequeñas estrellas ambientales
+    for (let i = 0; i < 3; i++) {
+        ctx.beginPath();
+        ctx.arc(
+            Math.random() * ancho,
+            Math.random() * alto,
+            Math.random() * 1.2,
+            0,
+            Math.PI * 2
+        );
+        ctx.fillStyle = "rgba(255, 130, 190, 0.4)";
+        ctx.fill();
+    }
+
+    // Las partículas trazan el corazón
+    if (progreso < puntos.length) {
+        for (let i = 0; i < 4 && progreso < puntos.length; i++) {
+            nuevaParticula(puntos[progreso]);
+            progreso++;
+        }
+    }
+
+    particulas.forEach(p => {
+        p.x += (p.destinoX - p.x) * p.velocidad;
+        p.y += (p.destinoY - p.y) * p.velocidad;
+
+        const brillo = 0.6 + Math.sin(Date.now() / 180 + p.fase) * 0.4;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.tam, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, ${100 + Math.floor(brillo * 80)}, 190, 1)`;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = "#ff1680";
+        ctx.fill();
+    });
+
+    ctx.shadowBlur = 0;
+
+    if (progreso >= puntos.length && !iniciado) {
+        iniciado = true;
+
+        setTimeout(() => {
+            corazon.classList.add("visible");
+        }, 500);
+
+        setTimeout(() => {
+            mensaje.classList.add("visible");
+        }, 1600);
+    }
+
+    // Limita el crecimiento de partículas
+    if (particulas.length > 1800) {
+        particulas.splice(0, particulas.length - 1800);
+    }
+
+    animacion = requestAnimationFrame(dibujar);
+}
+
+function reiniciar() {
+    cancelAnimationFrame(animacion);
+
+    particulas = [];
+    progreso = 0;
+    iniciado = false;
+
+    corazon.classList.remove("visible");
+    mensaje.classList.remove("visible");
+
+    ajustar();
+    dibujar();
+}
+
+foto.addEventListener("error", () => {
+    foto.alt = "Coloca tu fotografía en la carpeta del archivo HTML";
+});
+
+window.addEventListener("resize", ajustar);
+document.getElementById("repetir").addEventListener("click", reiniciar);
+
+ajustar();
+dibujar();
+</script>
+
+</body>
+</html>
